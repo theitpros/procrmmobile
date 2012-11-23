@@ -86,7 +86,7 @@
 		<form method="post" action="" id="form-login">
 			<ul class="inputs black-input large">
 				<!-- The autocomplete="off" attributes is the only way to prevent webkit browsers from filling the inputs with yellow -->
-               
+               <li><span class="icon-user mid-margin-right"></span><input type="text" name="license" id="license" class="input-unstyled" placeholder="License" autocomplete="off"></li>
 				<li><span class="icon-user mid-margin-right"></span><input type="text" name="username" id="username"  class="input-unstyled" placeholder="Login" autocomplete="off"></li>
 				<li><span class="icon-lock mid-margin-right"></span><input type="password" name="password" id="password"  class="input-unstyled" placeholder="Password" autocomplete="off"></li>
                 <li style='padding-left:7px; margin-left:0px;'><input type="radio" name="rememberme" id="rememberme" value="1" class="radio mid-margin-left"> <label for="rememberme" class="label">&nbsp;Remember Me</label></li>
@@ -138,8 +138,10 @@
 				// Values
 				var username = $.trim($('#username').val()),
 					password = $.trim($('#password').val()),
-					rememberme = $.trim($("#rememberme").val());
+					rememberme = $.trim($("#rememberme").val()),
+					license = $("#license").val();
 				
+
 				// Check inputs
 				if (username.length === 0)
 				{
@@ -169,7 +171,12 @@
 					event.preventDefault();
 					
 					
-				
+					$.post("http://crm1.com.au/API/Authentication",{act:'verification',username:username,password:password,license:license,savecredentials:rememberme},function(json){
+					
+					alert(json.result);
+					
+				},'json')
+
 					/*
 					 * This is where you may do your AJAX call, for instance:
 					 * $.ajax(url, {
@@ -317,6 +324,7 @@
 				}).hide().slideDown('fast');
 			}
 		});
+		
 
 
 	</script>
